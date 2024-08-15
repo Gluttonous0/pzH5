@@ -1,6 +1,47 @@
 <template>
-  <div>嗨喽login</div>
+  <div class="login_test">
+    <h1>用户登录</h1>
+    <van-form @submit="onSubmit">
+      <van-cell-group inset>
+        <van-field
+          v-model="form.userName"
+          name="用户名"
+          label="用户名"
+          placeholder="用户名"
+          :rules="[{ required: true, message: '请填写用户名' }]"
+        />
+        <van-field
+          v-model="form.passWord"
+          type="password"
+          name="密码"
+          label="密码"
+          placeholder="密码"
+          :rules="[{ required: true, message: '请填写密码' }]"
+        />
+      </van-cell-group>
+      <div style="margin: 16px">
+        <van-button round block type="primary" native-type="submit"> 提交 </van-button>
+      </div>
+    </van-form>
+  </div>
 </template>
 
-<script setup lang="ts"></script>
-<style scoped lang="less"></style>
+<script setup lang="ts">
+  import { reactive } from 'vue'
+
+  //绑定form表单数据
+  const form = reactive({
+    userName: '',
+    passWord: ''
+  })
+
+  //提交按钮
+  const onSubmit = (val: any) => {
+    console.log(val)
+  }
+</script>
+<style scoped lang="less">
+  .login_test {
+    width: 100vw;
+  }
+</style>

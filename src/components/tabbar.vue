@@ -1,23 +1,28 @@
 <template>
   <van-tabbar v-model="active">
-    <van-tabbar-item v-for="(item, index) in tabList" @click="handleNewPage(item.path, index)" :icon="item.meta.icon">
+    <van-tabbar-item
+      v-for="(item, index) in tabList"
+      :key="item.path"
+      @click="handleNewPage(item.path, index)"
+      :icon="item.meta.icon"
+    >
       {{ item.meta.name }}
     </van-tabbar-item>
   </van-tabbar>
 </template>
 
 <script setup lang="ts">
-  import { ref, onMounted } from 'vue'
-  import { useRouter } from 'vue-router'
+  import { ref, onMounted, computed } from 'vue'
+  import { useRoute, useRouter } from 'vue-router'
 
   onMounted(() => {
     tabList.value = router.options.routes[0].children
-    console.log(tabList.value)
+    active.value = tabList.value?.findIndex((item: any) => '/' + item.path === route.path) || 0
   })
 
   //获取路由
   const router = useRouter()
-  console.log(router)
+  const route = useRoute()
 
   //tabbbar---------------
   //选中状态

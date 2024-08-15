@@ -1,5 +1,3 @@
-import { createWebHashHistory, createRouter } from 'vue-router'
-
 import Layout from '../pages/Main.vue'
 import Home from '../pages/home/index.vue'
 import Order from '../pages/order/index.vue'
@@ -7,12 +5,13 @@ import User from '../pages/user/index.vue'
 import Login from '../pages/login/index.vue'
 import createOrder from '../pages/createOrder/index.vue'
 import detail from '../pages/detail/index.vue'
+import { createRouter, createWebHashHistory } from 'vue-router'
 
 const routes = [
   {
     path: '/',
     component: Layout,
-    redirect: '/home',
+    redirect: '/login',
     children: [
       {
         path: 'home',
