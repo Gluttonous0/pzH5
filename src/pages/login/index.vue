@@ -1,47 +1,60 @@
 <template>
-  <div class="login_test">
-    <h1>用户登录</h1>
-    <van-form @submit="onSubmit">
-      <van-cell-group inset>
-        <van-field
-          v-model="form.userName"
-          name="用户名"
-          label="用户名"
-          placeholder="用户名"
-          :rules="[{ required: true, message: '请填写用户名' }]"
-        />
-        <van-field
-          v-model="form.passWord"
-          type="password"
-          name="密码"
-          label="密码"
-          placeholder="密码"
-          :rules="[{ required: true, message: '请填写密码' }]"
-        />
-      </van-cell-group>
-      <div style="margin: 16px">
-        <van-button round block type="primary" native-type="submit"> 提交 </van-button>
-      </div>
-    </van-form>
-  </div>
+  <h1>用户登录</h1>
+  <van-form @submit="onSubmit">
+    <van-cell-group inset>
+      <van-field
+        v-model="form.userName"
+        name="用户名"
+        label="用户名"
+        placeholder="用户名"
+        :rules="[{ required: true, message: '请填写用户名' }]"
+      />
+      <van-field
+        v-model="form.passWord"
+        type="password"
+        name="密码"
+        label="密码"
+        placeholder="密码"
+        :rules="[{ required: true, message: '请填写密码' }]"
+      />
+    </van-cell-group>
+    <div class="btn">
+      <van-button round block type="primary" native-type="submit"> 提交 </van-button>
+    </div>
+  </van-form>
 </template>
 
 <script setup lang="ts">
   import { reactive } from 'vue'
+  import api from '../../api/loginApi'
+  import { showToast } from 'vant'
+  import store from '../../utils/stroage'
 
   //绑定form表单数据
   const form = reactive({
-    userName: '',
-    passWord: ''
+    userName: '17677172453',
+    passWord: '123123'
   })
 
   //提交按钮
-  const onSubmit = (val: any) => {
-    console.log(val)
+  const onSubmit = async () => {
+    showToast({ type: 'loading', message: '加载中...', forbidClick: true, duration: 10000 })
+    try {
+      const data = await api.login(form)
+      store.set('h5Token', data.token)
+      store.set('h5UserInfo', data.userInfo)
+      showToast({ type: 'success', message: '登录成功' })
+    } catch (error) {
+      console.log(error)
+      showToast({ type: 'fail', message: '账号或密码错误' })
+    }
   }
 </script>
 <style scoped lang="less">
-  .login_test {
-    width: 100vw;
+  h1 {
+    text-align: center;
+  }
+  .btn {
+    margin: 16px;
   }
 </style>
