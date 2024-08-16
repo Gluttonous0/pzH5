@@ -38,7 +38,6 @@
 
   //提交按钮
   const onSubmit = async () => {
-    showToast({ type: 'loading', message: '加载中...', forbidClick: true, duration: 10000 })
     try {
       const data = await api.login(form)
       store.set('h5Token', data.token)
