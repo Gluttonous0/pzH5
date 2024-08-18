@@ -1,35 +1,35 @@
 <template>
-    <div class="od-banner">
-      <img class="od-banner-icon" src="/images/od_bg_icon.png" mode="widthFix" />
-      <div class="od-jd" :class="[`od-jd-${item}`]">
-        <div class="od-jd-out">
-          <div class="od-jd-in"></div>
+  <div class="od-banner">
+    <img class="od-banner-icon" src="/images/od_bg_icon.png" mode="widthFix" />
+    <div class="od-jd" :class="[`od-jd-${item}`]">
+      <div class="od-jd-out">
+        <div class="od-jd-in"></div>
+      </div>
+      <div class="vp-flex od-jd-text">
+        <div class="vp-flex_1">
+          <text class="od-jd-st-0">填写订单</text>
         </div>
-        <div class="vp-flex od-jd-text">
-          <div class="vp-flex_1">
-            <text class="od-jd-st-0">填写订单</text>
-          </div>
-          <div class="vp-flex_1">
-            <text class="od-jd-st-10">在线支付</text>
-          </div>
-          <div class="vp-flex_1">
-            <text class="od-jd-st-20">专人服务</text>
-          </div>
-          <div class="vp-flex_1">
-            <text class="od-jd-st-30">服务完成</text>
-          </div>
+        <div class="vp-flex_1">
+          <text class="od-jd-st-10">在线支付</text>
+        </div>
+        <div class="vp-flex_1">
+          <text class="od-jd-st-20">专人服务</text>
+        </div>
+        <div class="vp-flex_1">
+          <text class="od-jd-st-30">服务完成</text>
         </div>
       </div>
     </div>
-  </template>
-  
-  <script setup>
-  import { ref, reactive, getCurrentInstance, onMounted } from "vue";
-  const { proxy } = getCurrentInstance();
-  const { item } = defineProps(["item"]);
-  </script>
-  
-  <style lang="less" scoped>
+  </div>
+</template>
+
+<script setup>
+  import { ref, reactive, getCurrentInstance, onMounted } from 'vue'
+  const { proxy } = getCurrentInstance()
+  const { item } = defineProps(['item'])
+</script>
+
+<style lang="less" scoped>
   .vp-flex {
     display: -webkit-box;
     display: -webkit-flex;
@@ -57,7 +57,7 @@
     width: 65px;
     opacity: 0.6;
   }
-  
+
   .od-jd {
     margin: 30px 20px;
   }
@@ -89,7 +89,7 @@
     font-size: 13px;
     opacity: 0.7;
   }
-  
+
   .od-jd-0 .od-jd-in {
     width: 12%;
   }
@@ -122,5 +122,4 @@
     width: 100%;
     background: #999999;
   }
-  </style>
-  
+</style>
