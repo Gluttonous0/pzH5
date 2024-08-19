@@ -172,4 +172,38 @@ export namespace Order {
     tel: string
     demand: string
   }
+  export interface Params {
+    companion_id: number
+    demand: string
+    hospital_id: number
+    hospital_name: string
+    order_start_time: number
+    out_trade_no: string
+    paidPrice: string
+    price: string
+    receiveAddress: string
+    serviceImg: string
+    service_name: string
+    service_state: string
+    starttime: string
+    tel: string
+    time_end: string
+    trade_state: string
+    transaction_id: string
+    user_id: string
+    code_url: string
+    client: {
+      id: number
+      mobile: string
+      name: string
+    }
+    companion: {
+      age: number
+      avatar: string
+      id: number
+      mobile: string
+      name: string
+      sex: string
+    }
+  }
 }

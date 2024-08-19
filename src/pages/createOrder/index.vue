@@ -1,4 +1,5 @@
 <template>
+  <div class="button"></div>
   <div class="container">
     <!-- 头部start -->
     <div class="header">
@@ -59,7 +60,7 @@
         type="textarea"
         v-model="cellList.demand"
         placeholder="请简单描述你要就诊的科室"
-        :autosize="{ minHeight: 150 }"
+        :autosize="{ minHeight: 100 }"
       />
       <!-- 详细信息end -->
     </div>
@@ -224,7 +225,7 @@
     const data = await api.createOrder(newList)
     console.log(data)
 
-    qrcode.toDataURL(data.wx_code).then(url => {
+    qrcode.toDataURL(data.wx_code).then((url: string) => {
       showDia.value.url = url
       showDia.value.state = true
     })

@@ -16,6 +16,10 @@ const api = {
   //创建订单
   createOrder(params: Order.CreateParams) {
     return request.post<{ wx_code: string }>('/createOrder', params)
+  },
+  //查询订单列表
+  getOrderList(state?: string) {
+    return request.get<Order.Params[]>('/order/list', { state })
   }
 }
 
