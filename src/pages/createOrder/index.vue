@@ -99,7 +99,7 @@
 </template>
 
 <script setup lang="ts">
-  import { useRouter } from 'vue-router'
+  import { useRouter, useRoute } from 'vue-router'
   import StatusBar from '../../components/statusBar.vue'
   import api from '../../api/api'
   import { computed, onMounted, reactive, ref } from 'vue'
@@ -114,6 +114,7 @@
 
   //创建路由实例
   const router = useRouter()
+  const route = useRoute()
 
   //获取订单详情
   const getH5Companion = async () => {

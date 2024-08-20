@@ -23,9 +23,7 @@
   </div>
 </template>
 
-<script setup>
-  import { ref, reactive, getCurrentInstance, onMounted } from 'vue'
-  const { proxy } = getCurrentInstance()
+<script setup lang="ts">
   const { item } = defineProps(['item'])
 </script>
 <style scoped lang="less">

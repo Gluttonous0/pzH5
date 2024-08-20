@@ -18,7 +18,7 @@
         <div v-if="item.trade_state === '待支付'"><RemainTime :time="item.order_start_time" /></div>
       </van-col>
     </van-row>
-    <div class="no-data" v-if="orderList.length === 0">暂无数据</div>
+    <div class="no-data">没有更多了</div>
   </div>
 </template>
 
@@ -30,10 +30,9 @@
 
   onMounted(() => {
     getOrderList(active.value.toString())
-    console.log(nowTime)
-    console.log(new Date(nowTime))
   })
-  const nowTime = Date.now() + 7200000
+
+  //订单列表数据
   const orderList = ref<Order.Params[]>([])
 
   const active = ref(0)
@@ -67,7 +66,7 @@
 <style scoped lang="less">
   .container {
     background-color: #f0f0f0;
-    height: calc(100vh - 50px);
+    min-height: 100vh;
   }
   .header {
     background-color: #fff;
@@ -98,9 +97,10 @@
     }
   }
   .no-data {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translateX(-30px);
+    text-align: center;
+    height: 50px;
+    line-height: 50px;
+    margin-bottom: 50px;
+    color: #a6aca9;
   }
 </style>

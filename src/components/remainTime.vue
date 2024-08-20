@@ -6,10 +6,10 @@
 
 <script setup lang="ts">
   import { computed, ref } from 'vue'
-  import { format } from 'date-fns'
 
   const props = defineProps(['time'])
-  const endTime = format(new Date(props.time + 7200000), 'HH:mm:ss').split(':')
+  const endTime = props.time + 7200000
+
   const timeId = ref<NodeJS.Timeout[]>([])
   const nowTime = ref({
     hour: 0,
@@ -17,13 +17,14 @@
     second: 0
   })
   const times = computed(() => {
-    return `${nowTime.value.hour == 0 ? '00' : nowTime.value.hour}:${
-      nowTime.value.minute == 0 ? '00' : nowTime.value.minute
-    }:${nowTime.value.second == 0 ? '00' : nowTime.value.second}`
+    return `0${nowTime.value.hour}:${nowTime.value.minute < 10 ? '0' + nowTime.value.minute : nowTime.value.minute}:${
+      nowTime.value.second < 10 ? '0' + nowTime.value.second : nowTime.value.second
+    }`
   })
-  clearInterval(timeId.value[0])
 
   const handleTime = (time: number) => {
+    clearInterval(timeId.value[0])
+    timeId.value.splice(0, 1)
     const t = setInterval(() => {
       if (time + 7200000 - Date.now() <= 0) {
         nowTime.value.hour = 0
@@ -31,25 +32,10 @@
         nowTime.value.second = 0
         clearInterval(t)
       } else {
-        const nowDate = format(new Date(Date.now()), 'HH:mm:ss').split(':')
-        if (endTime[2] < nowDate[2] && endTime[1] > nowDate[1]) {
-          nowTime.value.hour = parseInt(endTime[0]) - parseInt(nowDate[0])
-          nowTime.value.minute = parseInt(endTime[1]) - 1 - parseInt(nowDate[1])
-          nowTime.value.second = parseInt(endTime[2]) + 60 - parseInt(nowDate[2])
-        } else if (endTime[2] < nowDate[2] && endTime[1] < nowDate[1]) {
-          nowTime.value.hour = parseInt(endTime[0]) - 1 - parseInt(nowDate[0])
-          nowTime.value.minute = parseInt(endTime[1]) - 1 + 60 - parseInt(nowDate[1])
-          nowTime.value.second = parseInt(endTime[2]) + 60 - parseInt(nowDate[2])
-        } else {
-          nowTime.value.hour = parseInt(endTime[0]) - parseInt(nowDate[0])
-          nowTime.value.minute = parseInt(endTime[1]) - parseInt(nowDate[1])
-          nowTime.value.second = parseInt(endTime[2]) - parseInt(nowDate[2])
-        }
-        console.log('--------------------')
-
-        console.log('endTime', endTime)
-        console.log('nowDate', nowDate)
-        console.log('--------------------')
+        const nowDate = Date.now()
+        nowTime.value.hour = Math.floor((endTime - nowDate) / (1000 * 60 * 60))
+        nowTime.value.minute = Math.floor(((endTime - nowDate) % (1000 * 60 * 60)) / (1000 * 60))
+        nowTime.value.second = Math.floor(((endTime - nowDate) % (1000 * 60)) / 1000)
       }
       timeId.value.push(t)
     }, 1000)
