@@ -4,7 +4,7 @@
     <van-tabs v-model:active="active" animated @click="onChangeActive">
       <van-tab v-for="index in tabName.length" :title="tabName[index - 1]" />
     </van-tabs>
-    <van-row v-for="item in orderList" :key="item.out_trade_no" class="content-row">
+    <van-row v-for="item in orderList" :key="item.out_trade_no" class="content-row" @click="goPage(item)">
       <van-col span="6" class="col-one">
         <van-image width="50" height="50" radius="5" :src="item.serviceImg" />
       </van-col>
@@ -27,10 +27,14 @@
   import api from '../../api/api'
   import { Order } from '../../types/api'
   import RemainTime from '../../components/remainTime.vue'
+  import { useRouter } from 'vue-router'
 
   onMounted(() => {
     getOrderList(active.value.toString())
   })
+
+  //创建路由实例
+  const router = useRouter()
 
   //订单列表数据
   const orderList = ref<Order.Params[]>([])
@@ -60,6 +64,11 @@
     待服务: '#1da6fd',
     已完成: '21c521',
     已取消: '#a3a0a0'
+  }
+
+  //点击跳转
+  const goPage = (val: Order.Params) => {
+    router.push(`/detail?oid=${val.out_trade_no}`)
   }
 </script>
 

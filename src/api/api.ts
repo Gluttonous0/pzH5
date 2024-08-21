@@ -20,6 +20,10 @@ const api = {
   //查询订单列表
   getOrderList(state?: string) {
     return request.get<Order.Params[]>('/order/list', { state })
+  },
+  //获取订单详情
+  getOrderDetail() {
+    return request.get('/order/detail')
   }
 }
 

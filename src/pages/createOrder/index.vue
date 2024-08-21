@@ -1,5 +1,4 @@
 <template>
-  <div class="button"></div>
   <div class="container">
     <!-- 头部start -->
     <div class="header">
