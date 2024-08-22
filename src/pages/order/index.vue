@@ -2,7 +2,11 @@
   <div class="container">
     <div class="header"><h4>我的订单</h4></div>
     <van-tabs v-model:active="active" animated @click="onChangeActive">
-      <van-tab v-for="index in tabName.length" :title="tabName[index - 1]" :name="index - 1 == 0 ? '' : index - 1" />
+      <van-tab title="全部" name="" />
+      <van-tab title="待支付" name="1" />
+      <van-tab title="待服务" name="2" />
+      <van-tab title="已完成" name="3" />
+      <van-tab title="已取消" name="4" />
     </van-tabs>
     <van-row v-for="item in orderList" :key="item.out_trade_no" class="content-row" @click="goPage(item)">
       <van-col span="6" class="col-one">
@@ -27,19 +31,21 @@
   import api from '../../api/api'
   import { Order } from '../../types/api'
   import RemainTime from '../../components/remainTime.vue'
-  import { useRouter } from 'vue-router'
+  import { useRoute, useRouter } from 'vue-router'
 
   onMounted(() => {
+    active.value = (route.query.state as string) || ''
     getOrderList(active.value.toString())
   })
 
   //创建路由实例
   const router = useRouter()
+  const route = useRoute()
 
   //订单列表数据
   const orderList = ref<Order.Params[]>([])
 
-  const active = ref(0)
+  const active = ref('')
 
   //切换页签重置数据
   const onChangeActive = () => {
@@ -51,9 +57,6 @@
     const data = await api.getOrderList(state)
     orderList.value = data
   }
-
-  //tab页签名称
-  const tabName = ['全部', '待支付', '待服务', '已完成', '已取消']
 
   //颜色切换
   type stringKey = Record<string, string | number>
