@@ -1,7 +1,5 @@
 <template>
-  <div color="#ffa200">
-    {{ times }}
-  </div>
+  {{ times }}
 </template>
 
 <script setup lang="ts">

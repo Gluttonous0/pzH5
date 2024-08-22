@@ -1,3 +1,4 @@
+import { LocationQueryValue } from 'vue-router'
 import { Companion, H5Home, Login, Order } from '../types/api'
 import request from '../utils/request'
 
@@ -22,8 +23,8 @@ const api = {
     return request.get<Order.Params[]>('/order/list', { state })
   },
   //获取订单详情
-  getOrderDetail() {
-    return request.get('/order/detail')
+  getOrderDetail(oid: string | LocationQueryValue | LocationQueryValue[]) {
+    return request.get<Order.OrderDetail>('/order/detail', { oid })
   }
 }
 

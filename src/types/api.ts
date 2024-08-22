@@ -1,3 +1,6 @@
+//对象类型定义
+export type stringKey = Record<string, string | number>
+
 //返回结果
 export interface Result<T = any> {
   code: number
@@ -172,7 +175,7 @@ export namespace Order {
     tel: string
     demand: string
   }
-  export interface Params {
+  export interface OrderDetail {
     companion_id: number
     demand: string
     hospital_id: number
@@ -197,6 +200,8 @@ export namespace Order {
       mobile: string
       name: string
     }
+  }
+  export interface Params extends OrderDetail {
     companion: {
       age: number
       avatar: string

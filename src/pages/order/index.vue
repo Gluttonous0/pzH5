@@ -2,7 +2,7 @@
   <div class="container">
     <div class="header"><h4>我的订单</h4></div>
     <van-tabs v-model:active="active" animated @click="onChangeActive">
-      <van-tab v-for="index in tabName.length" :title="tabName[index - 1]" />
+      <van-tab v-for="index in tabName.length" :title="tabName[index - 1]" :name="index - 1 == 0 ? '' : index - 1" />
     </van-tabs>
     <van-row v-for="item in orderList" :key="item.out_trade_no" class="content-row" @click="goPage(item)">
       <van-col span="6" class="col-one">
@@ -43,8 +43,6 @@
 
   //切换页签重置数据
   const onChangeActive = () => {
-    console.log(1)
-
     getOrderList(active.value.toString())
   }
 
