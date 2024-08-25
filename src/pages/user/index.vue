@@ -36,8 +36,18 @@
     </div>
     <!-- cell end -->
 
-    <van-button type="danger" style="width: 100%" @click="goExit">退出登录</van-button>
+    <van-button type="danger" style="width: 100%" @click="dialogState = true">退出登录</van-button>
   </div>
+
+  <van-dialog
+    v-model:show="dialogState"
+    title="标题"
+    @cancel="cancelShow"
+    @confirm="confirmExit"
+    :show-cancel-button="true"
+  >
+    <div class="dialog-exit">确认是否退出登录</div>
+  </van-dialog>
 </template>
 
 <script setup lang="ts">
@@ -67,8 +77,17 @@
     router.push(`/order?state=${index + 1}`)
   }
 
-  //退出登录
-  const goExit = () => {
+  //dialog---
+  //dialog弹窗状态
+  const dialogState = ref(false)
+
+  //关闭弹窗
+  const cancelShow = () => {
+    dialogState.value = false
+  }
+
+  //确认退出
+  const confirmExit = () => {
     store.clear()
     router.push('/login')
   }
@@ -107,5 +126,9 @@
       border-radius: 10px;
       background-color: #fff;
     }
+  }
+  .dialog-exit {
+    text-align: center;
+    margin: 15px 0 30px 0;
   }
 </style>
