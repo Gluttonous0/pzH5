@@ -1,13 +1,17 @@
 <template>
   <div class="container">
-    <div class="header"><h4>我的订单</h4></div>
-    <van-tabs v-model:active="active" animated @click="onChangeActive">
-      <van-tab title="全部" name="" />
-      <van-tab title="待支付" name="1" />
-      <van-tab title="待服务" name="2" />
-      <van-tab title="已完成" name="3" />
-      <van-tab title="已取消" name="4" />
-    </van-tabs>
+    <div class="nav-header">
+      <div class="header"><h4>我的订单</h4></div>
+      <van-tabs v-model:active="active" animated @click="onChangeActive">
+        <van-tab title="全部" name="" />
+        <van-tab title="待支付" name="1" />
+        <van-tab title="待服务" name="2" />
+        <van-tab title="已完成" name="3" />
+        <van-tab title="已取消" name="4" />
+      </van-tabs>
+    </div>
+    <div style="height: 105px"></div>
+
     <van-row v-for="item in orderList" :key="item.out_trade_no" class="content-row" @click="goPage(item)">
       <van-col span="6" class="col-one">
         <van-image width="50" height="50" radius="5" :src="item.serviceImg" />
@@ -112,5 +116,12 @@
     line-height: 50px;
     margin-bottom: 50px;
     color: #a6aca9;
+  }
+  .nav-header {
+    position: fixed; /* 固定定位 */
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 9999;
   }
 </style>

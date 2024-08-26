@@ -108,7 +108,13 @@
   import qrcode from 'qrcode'
 
   onMounted(() => {
-    getH5Companion()
+    getH5Companion().then(() => {
+      if (route.query.id) {
+        const id = route.query.id as unknown as number
+        cellList.hospital_id = id
+        cellList.hospital_name = order.hospitals.filter(item => item.id == id)[0].name
+      }
+    })
   })
 
   //创建路由实例
@@ -131,24 +137,24 @@
   //声明列表key,value的类型
   type stringKey = Record<string, string | number>
   //cell列表数据
-  // const cellList: stringKey = reactive({
-  //   hospital_id: '',
-  //   hospital_name: '',
-  //   starttime: new Date().getTime(),
-  //   companion_id: 0,
-  //   receiveAddress: '',
-  //   tel: '',
-  //   demand: ''
-  // })
   const cellList: stringKey = reactive({
-    hospital_id: 1,
-    hospital_name: '湘雅分院',
+    hospital_id: '',
+    hospital_name: '',
     starttime: new Date().getTime(),
-    companion_id: 153,
-    receiveAddress: '阿萨德',
-    tel: '阿斯达大叔大婶',
-    demand: '阿斯达多大事'
+    companion_id: 0,
+    receiveAddress: '',
+    tel: '',
+    demand: ''
   })
+  // const cellList: stringKey = reactive({
+  //   hospital_id: 1,
+  //   hospital_name: '湘雅分院',
+  //   starttime: new Date().getTime(),
+  //   companion_id: 153,
+  //   receiveAddress: '阿萨德',
+  //   tel: '阿斯达大叔大婶',
+  //   demand: '阿斯达多大事'
+  // })
 
   //就诊医院下拉状态控制
   const showHospital = ref(false)
